@@ -1,0 +1,62 @@
+@font-face {
+    font-family: 'Reith Sans Regular';
+    src: url("./fonts/Reith/WOFF/BBCReithSans_W_Rg.woff");
+}
+
+@font-face {
+    font-family: 'Reith Sans Bold';
+    src: url("./fonts/Reith/WOFF/BBCReithSans_W_Bd.woff");
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: red;
+    font-family: 'Reith Sans Regular';
+}
+
+.hd-wrapper {
+    width: 1920px;
+    height: 1080px;
+    background-color: black;
+    background-image: url('img/ref-results.jpg');
+}
+
+.heading-bar {
+    position: absolute;
+    top: 355px;
+    left: 433px; 
+    width: 1057px;
+    height: 106px;
+    background-color: rgb(255,210,48);
+    border-bottom: rgb();
+}
+
+.heading-bar h1 {
+    font-family: 'Reith Sans Bold';
+    font-size: 49px;
+    white-space: nowrap;
+    max-width: 100%;
+    padding-left: 16px;
+    padding-bottom: 26px;
+    top: 50%;
+    transform: translate(0, -20%)
+}
+
+.bbc-logo {
+    position: absolute;
+    top: 583px;
+    left: 221px;
+    width: 212px;
+    height: 212px;
+}
+
+.lower-third-in {
+    -webkit-transition: -webkit-transform 1s cubic-bezier(0, 0, 0, 1);
+    -webkit-transform: translateY(500px);
+}
+
+.lower-third p {
+    padding: 5px 8px 5px 25px;
+    color: white;
+}
