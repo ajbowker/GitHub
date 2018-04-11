@@ -1,55 +1,46 @@
 <!doctype html>
 
 <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="mobile-web-app-capable" content="yes">
     <title>BBC Sport - Results</title>
     <link rel="stylesheet" href="sport-results.css">
 </head>
 
 <body>
     <div class="hd-wrapper">
-        <div class="contents">
-            <img class="bbc-logo" src="img/bbc_spors_alba.svg" />
-            <div class="board">
-                <div class="heading">
-                    <h1 class="heading-text">SCOTTISH PREMIERSHIP</h1>
+        <div class="slider js-slider">
+            <div class="contents">
+                <img class="bbc-logo" src="img/bbc_spors_alba.svg" />
+                <div class="board js-board">
+                    <div class="heading js-heading">
+                        <h1 class="heading-text">SCOTTISH PREMIERSHIP</h1>
+                    </div>
+                    <ul class="data-rows js-data-rows">
+                        <li class="row subheading">
+                            <h2>Saturday</h2>
+                        </li>
+
+                    </ul>
+                    <div class="footer">
+                        <h3 class="hashtag">#spors</h3>
+                        <h3 class="website">bbc.co.uk/alba</h3>
+                    </div>
                 </div>
-                <ul class="data-rows">
-                    <li class="subheading">
-                        <h2>Pools</h2>
-                    </li>
-                    <li class="white">
-                        <div class="home-team">CELTIC</div>
-                        <div class="score">2 - 2</div>
-                        <div class="away-team">RANGERS</div>
-                    </li>
-                    <li class="grey">
-                        <div class="home-team">EVERTON</div>
-                        <div class="score">0 - 0</div>
-                        <div class="away-team">SOUTHAMPTON</div>
-                    </li>
-                    <li class="white">
-                        <div class="home-team">MANCHESTER UNITED</div>
-                        <div class="score">1 - 1</div>
-                        <div class="away-team">CHELSEA</div>
-                    </li>
-                    <li class="grey">
-                        <div class="home-team">SCOTLAND</div>
-                        <div class="score">0 - 0</div>
-                        <div class="away-team">EGYPT</div>
-                    </li>
-                    <li class="white">
-                        <div class="home-team">SOMEBODY ELSE</div>
-                        <div class="score">0 - 0</div>
-                        <div class="away-team">ANOTHER TEAM</div>
-                    </li>
-                </ul>
-                <div class="footer">
-                    <span><h2 class="hashtag">#spors</h2></span><span><h2 class="website">bbc.co.uk/alba</h2></span>
+                <div class="competition-logo-container">
+                    <img class="competition-logo js-competition-logo" src="img/competition_logos/1.png" />
                 </div>
+               
             </div>
-            <img class="competition-logo" src="img/competition_logos/1.png" />
         </div>
     </div>
+
+    <script src="sport-results.js">
+	</script>
+
 </body>
 
 </html>
