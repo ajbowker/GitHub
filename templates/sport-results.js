@@ -27,7 +27,6 @@ var heading = document.querySelector('.js-heading');
 var headingText = document.querySelector('.js-heading-text');
 var competitionLogo = document.querySelector('.js-competition-logo');
 
-
 //initialise slider
 slider.style.width = '0';
 slider.style.webkitTransform = 'translateX(-450px)';
@@ -92,8 +91,18 @@ var update = function (message) {
         case 'in':
 
 
-          break;
 
+
+
+
+
+
+
+
+
+
+
+          break;
       }
 
       break;
@@ -129,28 +138,6 @@ var update = function (message) {
 }
 
 //some helper functions 
-var addClass = function (element, classname) {
-  element.classList.add(classname);
-};
-
-var removeClass = function (element, classname) {
-  element.classList.remove(classname);
-};
-
-var waitForTransition = (element, property, callback) => {
-
-  var func = (e) => {
-    //console.log('transition finished for ' + element.id + ((property !== undefined) ? ' on property ' + property : ''));
-
-    if (property === undefined || e.propertyName === property || e.propertyName === ('-webkit-' + property)) {
-      element.removeEventListener('webkitTransitionEnd', func);
-      callback(e);
-    }
-  };
-
-  element.addEventListener('webkitTransitionEnd', func);
-};
-
 var parseRows = function (rowdata) {
   var rows = rowdata.split('#');
   var parsedRows = [];
