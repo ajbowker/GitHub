@@ -73,15 +73,16 @@ body {
     background-color: rgb(255, 210, 48);
     border-top: 4px solid #fee483;
     border-bottom: 4px solid #e0be65;
-    -webkit-transition: height 1s 1s ease-in-out;
+    -webkit-transition: height 1s ease-in-out;
 }
 
-h1 {
+.heading .heading-text {
     font-family: 'Reith Sans Bold';
     font-size: 49px;
     white-space: nowrap;
     max-width: 100%;
     padding-left: 16px;
+    -webkit-transition: opacity 0.15s ease-in-out;
 }
 
 .data-rows {
@@ -99,6 +100,7 @@ h1 {
     justify-content: center;
     font-family: 'Reith Sans Bold';
     overflow: hidden;
+    -webkit-transition: opacity 0.15s ease-in-out;
 }
 
 .data-rows .row.white {

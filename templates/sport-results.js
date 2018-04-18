@@ -16,6 +16,7 @@ var sliderPosition;
 var currentState = 'out';
 var currentRawRows = '';
 var currentRowData;
+var currentRowElements;
 var currentTitle = '';
 var currentLogoId = '';
 
@@ -35,6 +36,8 @@ slider.style.webkitTransform = 'translateX(-450px)';
 var update = function (message) {
 
   var update = JSON.parse(message);
+  var i;
+  var newRow;
 
   switch (update.type) {
     case 'SPORT_RESULTS':
@@ -45,9 +48,12 @@ var update = function (message) {
           currentRawRows = update.rows;
 
           rows.innerHTML = '';
+          currentRowElements = [];
 
-          for (var i = 0; i < currentRowData.length; i += 1) {
-            rows.appendChild(createRow(currentRowData[i]));
+          for (i = 0; i < currentRowData.length; i += 1) {
+            newRow = createRow(currentRowData[i]);
+            currentRowElements.push(newRow);
+            rows.appendChild(newRow);
           }
 
           //set the title and competition sponsor logo
@@ -61,6 +67,7 @@ var update = function (message) {
           sliderHeight = ((rowHeight * currentRowData.length) + headingHeight + footerHeight);
           sliderPosition = (hdDimensions.height - sliderHeight) / 2;
 
+          slider.style.webkitTransition = 'initial';
           slider.style.height = sliderHeight + 'px';
           slider.style.width = '0';
           slider.style.webkitTransform = 'translateX(-450px) translateY(' + sliderPosition + 'px)';
@@ -69,7 +76,7 @@ var update = function (message) {
           // waitForTransition(slider, 'transform', function (e) {
           window.requestAnimationFrame(function () {
             window.requestAnimationFrame(function () {
-              slider.style.webkitTransition = '-webkit-transform 0.37s ease-in-out, width 1s ease-in-out';
+              slider.style.webkitTransition = '-webkit-transform 0.37s ease-in-out, width 1s ease-in-out, height 1s ease-in-out';
               slider.style.webkitTransform = 'translateX(221px) translateY(' + sliderPosition + 'px)';
               slider.style.width = '1369px';
 
@@ -90,17 +97,73 @@ var update = function (message) {
 
         case 'in':
 
+          if (update.title !== currentTitle) {
+            currentTitle = update.title;
 
+            headingText.style.opacity = '0.0';
 
+            waitForTransition(headingText, 'opacity', function (e) {
+              headingText.innerText = update.title;
+              headingText.style.opacity = '1.0';
+            });
+          }
 
+          if (update.logoId !== currentLogoId) {
+            currentLogoId = update.logoId;
 
+            competitionLogo.style.webkitTransitionDelay = 'initial';
+            competitionLogo.style.webkitTransform = 'translateX(-100px)';
 
+            waitForTransition(competitionLogo, 'transform', function (e) {
+              competitionLogo.src = 'img/competition_logos/' + update.logoId + '.png';
+              competitionLogo.style.webkitTransform = 'translateX(0)';
+            });
+          }
 
+          if (update.rows !== currentRawRows) {
+            currentRowData = parseRows(update.rows);
+            currentRawRows = update.rows;
 
+            //position the slider
+            sliderHeight = ((rowHeight * currentRowData.length) + headingHeight + footerHeight);
+            sliderPosition = (hdDimensions.height - sliderHeight) / 2;
 
+            slider.style.webkitTransform = 'translateX(221px) translateY(' + sliderPosition + 'px)';
+            slider.style.height = sliderHeight + 'px';
 
+            rows.style.webkitTransitionDelay = 'initial';
+            rows.style.height = (rowHeight * currentRowData.length) + 'px';
 
+            //fade out all rows
+            for (i = 0; i < currentRowElements.length; i += 1) {
+              currentRowElements[i].style.webkitTransitionDelay = (i * 0.05) + 's';
+              currentRowElements[i].style.opacity = '0.0';
+            }
 
+            waitForTransition(currentRowElements[currentRowElements.length - 1], 'opacity', function (e) {
+              rows.innerHTML = '';
+              currentRowElements = [];
+
+              for (i = 0; i < currentRowData.length; i += 1) {
+                newRow = createRow(currentRowData[i]);
+                newRow.style.opacity = '0.0';
+                currentRowElements.push(newRow);
+                rows.appendChild(newRow);
+              }
+
+              window.requestAnimationFrame(function () {
+                window.requestAnimationFrame(function () {
+                  //fade new rows back in
+                  for (i = 0; i < currentRowElements.length; i += 1) {
+                    currentRowElements[i].style.webkitTransitionDelay = (i * 0.05) + 's';
+                    currentRowElements[i].style.opacity = '1.0';
+                  }
+                });
+              });
+
+            });
+
+          }
 
           break;
       }
@@ -112,7 +175,7 @@ var update = function (message) {
       switch (currentState) {
         case 'in':
 
-          competitionLogo.removeAttribute('style');
+          competitionLogo.style.webkitTransitionDelay = 'initial';
           competitionLogo.style.webkitTransform = 'translateX(-100px)';
 
           rows.style.webkitTransitionDelay = '0.3s';
@@ -203,11 +266,13 @@ var createRow = function (row) {
   if (row.type === 'subheading') {
     //subheading
     addClass(newRow, 'row');
+    addClass(newRow, 'js-row');
     addClass(newRow, 'subheading');
 
     newRow.innerHTML = '<h2>' + row.text + '</h2>';
   } else if (row.type === 'score') {
     addClass(newRow, 'row');
+    addClass(newRow, 'js-row');
     addClass(newRow, row.colour);
 
     var scoreline = '<div class="home-team">' + row.homeTeam + '</div>';
@@ -219,6 +284,28 @@ var createRow = function (row) {
 
   return newRow;
 }
+
+var waitForTransition = function (element, property, callback) {
+
+  var func = function (e) {
+    //console.log('transition finished for ' + element.id + ((property !== undefined) ? ' on property ' + property : ''));
+
+    if (property === undefined || e.propertyName === property || e.propertyName === '-webkit-' + property) {
+      element.removeEventListener('webkitTransitionEnd', func);
+      callback(e);
+    }
+  };
+
+  element.addEventListener('webkitTransitionEnd', func);
+};
+
+var addClass = function (element, classname) {
+  element.classList.add(classname);
+};
+
+var removeClass = function (element, classname) {
+  element.classList.remove(classname);
+};
 
 //link up the update function we built to Caspar through the window object
 window.update = update;
