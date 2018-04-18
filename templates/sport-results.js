@@ -1,4 +1,4 @@
-//dimension constants
+//dimension varants
 var headingHeight = 96;
 var rowHeight = 52;
 var subheadingHeight = 52;
@@ -26,6 +26,11 @@ var rows = document.querySelector('.js-data-rows');
 var heading = document.querySelector('.js-heading');
 var headingText = document.querySelector('.js-heading-text');
 var competitionLogo = document.querySelector('.js-competition-logo');
+
+
+//initialise slider
+slider.style.width = '0';
+slider.style.webkitTransform = 'translateX(-450px)';
 
 //update function used by Caspar at window.update
 var update = function (message) {
@@ -58,20 +63,25 @@ var update = function (message) {
           sliderPosition = (hdDimensions.height - sliderHeight) / 2;
 
           slider.style.height = sliderHeight + 'px';
+          slider.style.width = '0';
           slider.style.webkitTransform = 'translateX(-450px) translateY(' + sliderPosition + 'px)';
 
           //expand the classified board
+          // waitForTransition(slider, 'transform', function (e) {
           window.requestAnimationFrame(function () {
             window.requestAnimationFrame(function () {
-
-              addClass(slider, 'expander');
+              slider.style.webkitTransition = '-webkit-transform 0.37s ease-in-out, width 1s ease-in-out';
               slider.style.webkitTransform = 'translateX(221px) translateY(' + sliderPosition + 'px)';
               slider.style.width = '1369px';
 
+              heading.style.webkitTransitionDelay = '1s';
+              heading.style.height = '96px';
+
+              rows.style.webkitTransitionDelay = '1s';
               rows.style.height = (rowHeight * currentRowData.length) + 'px';
 
-              addClass(heading, 'expand');
-              addClass(competitionLogo, 'expand');
+              competitionLogo.style.webkitTransitionDelay = '2s';
+              competitionLogo.style.webkitTransform = 'translateX(0)';
 
               currentState = 'in';
             });
@@ -88,7 +98,31 @@ var update = function (message) {
 
       break;
 
-    case 'SPORT_RESULTS_OUT':
+    case 'SPORT_RESULTS_OFF':
+
+      switch (currentState) {
+        case 'in':
+
+          competitionLogo.removeAttribute('style');
+          competitionLogo.style.webkitTransform = 'translateX(-100px)';
+
+          rows.style.webkitTransitionDelay = '0.3s';
+          rows.style.height = '0';
+
+          heading.style.webkitTransitionDelay = '0.3s';
+          heading.style.height = '156px';
+
+          slider.style.webkitTransitionDelay = '1.3s';
+          slider.style.webkitTransform = 'translateX(-450px) translateY(' + sliderPosition + 'px)';
+          slider.style.width = '0';
+
+          currentState = 'out';
+          currentRawRows = '';
+          currentTitle = '';
+          currentLogoId = '';
+
+          break;
+      }
 
       break;
   }
@@ -101,6 +135,20 @@ var addClass = function (element, classname) {
 
 var removeClass = function (element, classname) {
   element.classList.remove(classname);
+};
+
+var waitForTransition = (element, property, callback) => {
+
+  var func = (e) => {
+    //console.log('transition finished for ' + element.id + ((property !== undefined) ? ' on property ' + property : ''));
+
+    if (property === undefined || e.propertyName === property || e.propertyName === ('-webkit-' + property)) {
+      element.removeEventListener('webkitTransitionEnd', func);
+      callback(e);
+    }
+  };
+
+  element.addEventListener('webkitTransitionEnd', func);
 };
 
 var parseRows = function (rowdata) {
