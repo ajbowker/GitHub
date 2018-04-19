@@ -128,6 +128,7 @@ var update = function (message) {
             sliderHeight = ((rowHeight * currentRowData.length) + headingHeight + footerHeight);
             sliderPosition = (hdDimensions.height - sliderHeight) / 2;
 
+            slider.style.webkitTransition = '-webkit-transform 1s ease-in-out, width 1s ease-in-out, height 1s ease-in-out';
             slider.style.webkitTransform = 'translateX(221px) translateY(' + sliderPosition + 'px)';
             slider.style.height = sliderHeight + 'px';
 
@@ -184,7 +185,7 @@ var update = function (message) {
           heading.style.webkitTransitionDelay = '0.3s';
           heading.style.height = '156px';
 
-          slider.style.webkitTransitionDelay = '1.3s';
+          slider.style.webkitTransition = '-webkit-transform 1s 1.6s ease-in-out, width 1s 1.3s ease-in-out, height 1s 1.3s ease-in-out';
           slider.style.webkitTransform = 'translateX(-450px) translateY(' + sliderPosition + 'px)';
           slider.style.width = '0';
 
@@ -245,7 +246,7 @@ var parseRows = function (rowdata) {
         //is some other text
         parsedRows.push({
           type: 'score',
-          colour: (matchCounter % 2) ? 'white' : 'grey',
+          colour: (matchCounter % 2) ? 'grey' : 'white',
           homeTeam: trimmedItems[0].toUpperCase(),
           betweenText: trimmedItems[1].toUpperCase(),
           betweenType: 'other',
@@ -266,13 +267,11 @@ var createRow = function (row) {
   if (row.type === 'subheading') {
     //subheading
     addClass(newRow, 'row');
-    addClass(newRow, 'js-row');
     addClass(newRow, 'subheading');
 
     newRow.innerHTML = '<h2>' + row.text + '</h2>';
   } else if (row.type === 'score') {
     addClass(newRow, 'row');
-    addClass(newRow, 'js-row');
     addClass(newRow, row.colour);
 
     var scoreline = '<div class="home-team">' + row.homeTeam + '</div>';
