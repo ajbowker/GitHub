@@ -203,7 +203,7 @@ var update = function (message) {
 
 //some helper functions 
 var parseRows = function (rowdata) {
-  var rows = rowdata.split('#');
+  var rows = rowdata.split('|');
   var parsedRows = [];
   var items;
   var trimmedItem;
