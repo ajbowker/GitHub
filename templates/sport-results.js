@@ -61,8 +61,15 @@ var update = function (message) {
           headingText.innerText = update.title;
 
           currentLogoId = update.logoId;
-          competitionLogo.src = 'img/competition_logos/' + update.logoId + '.png';
 
+          if (currentLogoId === '') {
+            competitionLogo.style.visibility = 'hidden';
+          } else {
+            competitionLogo.style.visibility = 'visible';
+            competitionLogo.src = 'img/competition_logos/' + update.logoId + '.png';
+          }
+
+          
           //position the slider
           sliderHeight = ((rowHeight * currentRowData.length) + headingHeight + footerHeight);
           sliderPosition = (hdDimensions.height - sliderHeight) / 2;
