@@ -2,7 +2,7 @@
 
 ![Sport Results Screenshot](https://github.com/bbc/casparcg-bbcsport-results-board/blob/master/readme_screenshot.png)
 
-[sport-result.html](sport-result.html)
+[sport-result.html](templates/sport-result.html)
 
 How it works
 
