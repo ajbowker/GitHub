@@ -2,9 +2,9 @@
 
 ![Sport Results Screenshot](https://github.com/bbc/casparcg-bbcsport-results-board/blob/master/readme_screenshot.png)
 
-[sport-result.html](templates/sport-result.html)
+[sport-results.html](templates/sport-results.html)
 
-How it works
+How it works:
 
 You animate on the board by firing an `update` command with the following JSON:
 ```
