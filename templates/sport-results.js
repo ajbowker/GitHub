@@ -62,13 +62,26 @@ var update = function (message) {
 
           currentLogoId = update.logoId;
 
-          if (currentLogoId === '') {
-            competitionLogo.style.visibility = 'hidden';
-          } else {
-            competitionLogo.style.visibility = 'visible';
-            competitionLogo.src = 'img/competition_logos/' + update.logoId + '.png';
-          }
+          //if (currentLogoId === '') {
+          //  competitionLogo.style.visibility = 'hidden';
+          //} else {
+          //  competitionLogo.style.visibility = 'visible';
+          //  competitionLogo.src = 'img/competition_logos/' + update.logoId + '.png';
+          //}
 
+            // ==== SC checking if given image name is valid =====
+            var SCimg = new Image();
+            SCimg.src = 'img/competition_logos/' + update.logoId + '.png';
+            SCimg.onload = function() {
+                // image is valid
+                competitionLogo.style.visibility = 'visible';
+                competitionLogo.src = 'img/competition_logos/' + update.logoId + '.png';
+            }
+            SCimg.onerror = function() {
+                // image is not valid
+                competitionLogo.style.visibility = 'hidden';
+            } 
+            // ==== END OF SC checking if given image name is valid =====
           
           //position the slider
           sliderHeight = ((rowHeight * currentRowData.length) + headingHeight + footerHeight);
