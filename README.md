@@ -53,6 +53,8 @@ Eg:  `<img class="bbc-logo" src="img/bbc_sport.svg" />`
 
 - [ ] Limit text size in headings (like MaxSize does in Viz Artist)
 
+- [ ] Have a pools style board from 'SPORT_RESULTS_POOL', and have a 5 detail row containing Pools Number and Pools Value
+
 - [ ] Give blue score background for matches in play, yellow for completed matches, add a flag to score for matches in play, such as '2 - 1*' 
 
 This template featured in the [CasparCG at BBC Scotland](https://youtu.be/-XN8rovqzA0) talk to the glasgowCoderCollective.
