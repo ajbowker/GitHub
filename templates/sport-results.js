@@ -19,6 +19,8 @@ var currentRowData;
 var currentRowElements;
 var currentTitle = '';
 var currentLogoId = '';
+var currentHashtag = '';
+var currentWebsite = '';
 
 //select elements from html
 var slider = document.querySelector('.js-slider');
@@ -27,6 +29,8 @@ var rows = document.querySelector('.js-data-rows');
 var heading = document.querySelector('.js-heading');
 var headingText = document.querySelector('.js-heading-text');
 var competitionLogo = document.querySelector('.js-competition-logo');
+var hashtag = document.querySelector('.js-hashtag');
+var website = document.querySelector('.js-website');
 
 //initialise slider
 slider.style.width = '0';
@@ -60,16 +64,30 @@ var update = function (message) {
           currentTitle = update.title;
           headingText.innerText = update.title;
 
+          if (update.hashtag == null) {
+            //just leave the existing HTML in
+          } else {
+            currentHashtag = update.hashtag;
+            hashtag.innerText = update.hashtag;
+          }
+
+          if (update.website == null) {
+            
+          } else {
+            currentWebsite = update.website;
+            website.innerText = update.website;
+          }
+
           currentLogoId = update.logoId;
 
-            var SCimg = new Image();
-            SCimg.src = 'img/competition_logos/' + update.logoId + '.png';
-            SCimg.onload = function() {
+            var checkImg = new Image();
+            checkImg.src = 'img/competition_logos/' + update.logoId + '.png';
+            checkImg.onload = function() {
                 // image is valid
                 competitionLogo.style.visibility = 'visible';
                 competitionLogo.src = 'img/competition_logos/' + update.logoId + '.png';
             }
-            SCimg.onerror = function() {
+            checkImg.onerror = function() {
                 // image is not valid
                 competitionLogo.style.visibility = 'hidden';
             }; 
@@ -107,6 +125,36 @@ var update = function (message) {
           break;
 
         case 'in':
+
+          if (update.hashtag == null) {
+            //just leave the existing HTML in
+          } else {
+            if (update.hashtag !== currentHashtag) {
+              currentHashtag = update.hashtag;
+  
+              hashtag.style.opacity = '0.0';
+  
+              waitForTransition(hashtag, 'opacity', function (e) {
+                hashtag.innerText = update.hashtag;
+                hashtag.style.opacity = '1.0';
+              });
+            }
+          }
+
+          if (update.website == null) {
+            //just leave the existing HTML in            
+          } else {
+            if (update.website !== currentWebsite) {
+              currentWebsite = update.website;
+  
+              website.style.opacity = '0.0';
+  
+              waitForTransition(website, 'opacity', function (e) {
+                website.innerText = update.website;
+                website.style.opacity = '1.0';
+              });
+            }
+          }
 
           if (update.title !== currentTitle) {
             currentTitle = update.title;

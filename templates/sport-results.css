@@ -180,10 +180,12 @@ body {
 .footer .website {
     display: block;
     font-size: 20px;
+    -webkit-transition: opacity 0.3s ease-in-out;
 }
 
 .footer .hashtag {
     padding-left: 15px;
+
 }
 
 .footer .website {

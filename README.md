@@ -10,7 +10,7 @@
 
 You animate on the board by firing an `update` command with the following JSON:
 ```
-update('{"type":"SPORT_RESULTS","title":"LADBROKES SCOTTISH PREMIERSHIP","logoId":"1","rows":"Saturday|CELTIC~1 - 2~RANGERS|HEART OF MIDLOTHIAN~3 - 4~HIBERNIAN|Sunday|ST JOHNSTON~0 - 5~ABERDEEN|~~|~~|~~|~~|~~|~~|~~|~~|~~"}')
+update('{"type":"SPORT_RESULTS","title":"LADBROKES SCOTTISH PREMIERSHIP","logoId":"1","hashtag":"#getinspired","website":"bbc.co.uk/getinspired","rows":"Saturday|CELTIC~1 - 2~RANGERS|HEART OF MIDLOTHIAN~3 - 4~HIBERNIAN|Sunday|ST JOHNSTON~0 - 5~ABERDEEN|~~|~~|~~|~~|~~|~~|~~|~~|~~"}')
 ```
 The board can handle changes from one page to the next through state logic.
 
@@ -21,7 +21,10 @@ update('{"type":"SPORT_RESULTS_OFF"}')
 
 - `type` can either be `SPORT_RESULTS` or `SPORT_RESULTS_OFF`.
 - `logoId` is linked to the PNG images in [templates/img/competition_logos](templates/img/competition_logos/). Leave this empty to hide the competition logo.
-- `rows` are made up of either subheadings or matches. To make a subheading, simply enter the required string, 'Saturday'. Match details are separated by '~', `HomeTeam~0 - 0~AwayTeam`. If score contains any letters, box goes grey. 
+- `hashtag` is linked to the footer bar, left hand text, `#sportscene`
+- `website` is linked to the footer bar, right hand text `bbc.co.uk/getinspired`
+- `rows` are made up of either subheadings or matches. To make a subheading, simply enter the required string, 'Saturday'. Match details are separated by '~', `HomeTeam~0 - 0~AwayTeam`. If score contains any letters, box goes grey. If the score contains an '*' then we will present
+this match as active, a blue box with white text. 
 - Each row is separated with '|', up to a maximum of 14 rows. Or more if you want, but that might look daft.
 
 For the main BBC logo, you can swap the .svg for any other Sport brand in the 
@@ -49,7 +52,7 @@ Eg:  `<img class="bbc-logo" src="img/bbc_sport.svg" />`
 
 ## To do:
 
-- [ ] Add footer text (hashtag, web address) to be configurable from update/JSON
+- [X] Add footer text (hashtag, web address) to be configurable from update/JSON
 
 - [ ] Limit text size in headings (like MaxSize does in Viz Artist)
 
