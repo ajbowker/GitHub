@@ -62,14 +62,6 @@ var update = function (message) {
 
           currentLogoId = update.logoId;
 
-          //if (currentLogoId === '') {
-          //  competitionLogo.style.visibility = 'hidden';
-          //} else {
-          //  competitionLogo.style.visibility = 'visible';
-          //  competitionLogo.src = 'img/competition_logos/' + update.logoId + '.png';
-          //}
-
-            // ==== SC checking if given image name is valid =====
             var SCimg = new Image();
             SCimg.src = 'img/competition_logos/' + update.logoId + '.png';
             SCimg.onload = function() {
@@ -80,8 +72,7 @@ var update = function (message) {
             SCimg.onerror = function() {
                 // image is not valid
                 competitionLogo.style.visibility = 'hidden';
-            } 
-            // ==== END OF SC checking if given image name is valid =====
+            }; 
           
           //position the slider
           sliderHeight = ((rowHeight * currentRowData.length) + headingHeight + footerHeight);
@@ -231,7 +222,7 @@ var parseRows = function (rowdata) {
   var matchCounter = 0;
 
   for (var i = 0; i < rows.length; i += 1) {
-    var items = rows[i].split('~');
+    items = rows[i].split('~');
     trimmedItems = [];
 
     for (var j = 0; j < items.length; j += 1) {
@@ -250,6 +241,14 @@ var parseRows = function (rowdata) {
         text: trimmedItems[0]
       })
     } else if (trimmedItems.length > 1) {
+
+      var active = false;
+
+      if (trimmedItems[1].includes('*')) {
+        trimmedItems[1].replace('*','');
+        active = true;
+      }
+
       var scoreMatches = trimmedItems[1].match(/\d+/g);
 
       if (scoreMatches !== null && scoreMatches.length === 2) {
@@ -259,7 +258,7 @@ var parseRows = function (rowdata) {
           colour: (matchCounter % 2) ? 'grey' : 'white',
           homeTeam: trimmedItems[0].toUpperCase(),
           betweenText: scoreMatches[0] + ' - ' + scoreMatches[1],
-          betweenType: 'scores',
+          betweenType: (active == true) ? 'active' : 'scores',
           awayTeam: trimmedItems[2].toUpperCase()
         })
       } else {

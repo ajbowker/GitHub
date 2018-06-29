@@ -143,6 +143,12 @@ body {
     ;
 }
 
+.data-rows .row .between.active {
+    background-color:#2866f6;
+    color: white;
+    ;
+}
+
 .data-rows .row .home-team {
     text-align: right;
     width: 431px;
