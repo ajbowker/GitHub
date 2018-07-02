@@ -292,7 +292,7 @@ var parseRows = function (rowdata) {
 
       var active = false;
 
-      if (indexOf('*') > -1) {
+      if (trimmedItems[1].indexOf('*') > -1) {
         trimmedItems[1].replace('*','');
         active = true;
       }
