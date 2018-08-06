@@ -51,6 +51,17 @@ body {
     height: 212px;
 }
 
+.left-gradient {
+    width: 212px;
+    height: 1080px;
+    position: absolute;
+    left: 0px;
+    top: 0;
+    z-index: 1;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0) 70%, rgba(0, 0, 0, 0.2) 100%);
+}
+
+
 .competition-logo-container {
     align-self: flex-start;
     overflow: hidden;

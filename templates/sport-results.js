@@ -24,6 +24,7 @@ var currentWebsite = '';
 
 //select elements from html
 var slider = document.querySelector('.js-slider');
+var leftGradient = document.querySelector('.js-left-gradient');
 var board = document.querySelector('.js-board');
 var rows = document.querySelector('.js-data-rows');
 var heading = document.querySelector('.js-heading');
@@ -35,6 +36,7 @@ var website = document.querySelector('.js-website');
 //initialise slider
 slider.style.width = '0';
 slider.style.webkitTransform = 'translateX(-450px)';
+leftGradient.style.webkitTransform = 'translateX(-450px)';
 
 //update function used by Caspar at window.update
 var update = function (message) {
@@ -107,6 +109,10 @@ var update = function (message) {
             window.requestAnimationFrame(function () {
               slider.style.webkitTransition = '-webkit-transform 0.37s ease-in-out, width 1s ease-in-out, height 1s ease-in-out';
               slider.style.webkitTransform = 'translateX(221px) translateY(' + sliderPosition + 'px)';
+
+              leftGradient.style.webkitTransition = '-webkit-transform 0.37s ease-in-out';
+              leftGradient.style.webkitTransform = 'translateX(221px)';
+
               slider.style.width = '1369px';
 
               heading.style.webkitTransitionDelay = '1s';
@@ -189,6 +195,10 @@ var update = function (message) {
 
             slider.style.webkitTransition = '-webkit-transform 1s ease-in-out, width 1s ease-in-out, height 1s ease-in-out';
             slider.style.webkitTransform = 'translateX(221px) translateY(' + sliderPosition + 'px)';
+
+            leftGradient.style.webkitTransition = '-webkit-transform 1s ease-in-out';
+            leftGradient.style.webkitTransform = 'translateX(221px)';
+
             slider.style.height = sliderHeight + 'px';
 
             rows.style.webkitTransitionDelay = 'initial';
@@ -246,6 +256,10 @@ var update = function (message) {
 
           slider.style.webkitTransition = '-webkit-transform 1s 1.6s ease-in-out, width 1s 1.3s ease-in-out, height 1s 1.3s ease-in-out';
           slider.style.webkitTransform = 'translateX(-450px) translateY(' + sliderPosition + 'px)';
+
+          leftGradient.style.webkitTransition = '-webkit-transform 1s 1.6s ease-in-out';
+          leftGradient.style.webkitTransform = 'translateX(-450px)';
+
           slider.style.width = '0';
 
           currentState = 'out';
