@@ -19,12 +19,24 @@ Animate it off with:
 update('{"type":"SPORT_RESULTS_OFF"}')
 ```
 
-- `type` can either be `SPORT_RESULTS` or `SPORT_RESULTS_OFF`.
+- `type` can either be :
+`SPORT_RESULTS`,
+`FOOTBALL_RESULTS`,
+`SPORT_RESULTS_OFF` or 
+`SPORT_RESULTS_OFF`.
 - `logoId` is linked to the PNG images in [templates/img/competition_logos](templates/img/competition_logos/). Leave this empty to hide the competition logo.
 - `hashtag` is linked to the footer bar, left hand text, `#sportscene`
 - `website` is linked to the footer bar, right hand text `bbc.co.uk/getinspired`
-- `rows` are made up of either subheadings or matches. To make a subheading, simply enter the required string, 'Saturday'. Match details are separated by '~', `HomeTeam~0 - 0~AwayTeam`. If score contains any letters, box goes grey. If the score contains an '*' then we will present
-this match as active, a blue box with white text. 
+- `rows` are made up of either subheadings or matches. 
+
+To make a subheading, simply enter the required string, 'Saturday'. 
+
+Match details are separated by '~', `HomeTeam~0 - 0~AwayTeam`. If score contains any letters, box goes grey. 
+
+If the score contains an '*' then we will present this match as active, a blue box with white text. eg: `Celtic~3 - 1*~Rangers`
+
+Matches with 5 values inside such as `5~Chelsea~0 - 0~Arsenal~2` will display a Pools result along with the match. Make sure to top the rows with a subheading saying 'Pools' if so.
+
 - Each row is separated with '|', up to a maximum of 14 rows. Or more if you want, but that might look daft.
 
 For the main BBC logo, you can swap the .svg for any other Sport brand in the 
@@ -54,11 +66,13 @@ Eg:  `<img class="bbc-logo" src="img/bbc_sport.svg" />`
 
 - [X] Add footer text (hashtag, web address) to be configurable from update/JSON
 
-- [ ] Limit text size in headings (like MaxSize does in Viz Artist)
-
-- [ ] Have a pools style board from 'SPORT_RESULTS_POOL', and have a 5 detail row containing Pools Number and Pools Value
+- [X] Have a pools style board from 'SPORT_RESULTS_POOL', and have a 5 detail row containing Pools Number and Pools Value
 
 - [X] Give blue score background for matches in play, yellow for completed matches, add a flag to score for matches in play, such as '2 - 1*' 
+
+- [ ] Limit text size in headings (like MaxSize does in Viz Artist)
+
+## About this work:
 
 This template featured in the [CasparCG at BBC Scotland](https://youtu.be/-XN8rovqzA0) talk to the glasgowCoderCollective.
 

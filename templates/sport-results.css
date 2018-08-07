@@ -112,6 +112,7 @@ body {
     justify-content: center;
     font-family: 'Reith Sans Bold';
     overflow: hidden;
+    font-size: 28px;
     -webkit-transition: opacity 0.15s ease-in-out;
 }
 
@@ -133,13 +134,13 @@ body {
 .data-rows .row.subheading h2 {
     padding-left: 15px;
     font-family: 'Reith Sans Light';
+    font-size: 28px;
 }
 
 .data-rows .row .between {
     text-align: center;
     width: 99px;
     height: inherit;
-    font-size: 28px;
     font-family: 'Reith Sans Regular';
     padding-top: 13px;
 }
@@ -151,20 +152,17 @@ body {
 
 .data-rows .row .between.other {
     background-color: #ddd;
-    ;
 }
 
 .data-rows .row .between.active {
     background-color:#2866f6;
     color: white;
-    ;
 }
 
 .data-rows .row .home-team {
     text-align: right;
     width: 431px;
     height: inherit;
-    font-size: 28px;
     padding-top: 13px;
     padding-right: 10px;
 }
@@ -173,9 +171,24 @@ body {
     text-align: left;
     width: 431px;
     height: inherit;
-    font-size: 28px;
     padding-top: 13px;
     padding-left: 10px;
+}
+
+.data-rows .row .pools-no {
+    text-align: center;
+    width: 80px;
+    padding-top: 13px;
+    height: inherit;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0) 70%, rgba(0, 0, 0, 0.2) 100%);
+}
+
+.data-rows .row .pools-val {
+    text-align: center;
+    width: 80px;
+    padding-top: 13px;
+    height: inherit;
+    background: linear-gradient(to left, rgba(0, 0, 0, 0) 70%, rgba(0, 0, 0, 0.2) 100%);
 }
 
 .footer {

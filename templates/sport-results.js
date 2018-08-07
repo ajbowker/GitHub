@@ -47,6 +47,7 @@ var update = function (message) {
 
   switch (update.type) {
     case 'SPORT_RESULTS':
+    case 'FOOTBALL_RESULTS':
 
       switch (currentState) {
         case 'out':
@@ -180,8 +181,13 @@ var update = function (message) {
             competitionLogo.style.webkitTransform = 'translateX(-100px)';
 
             waitForTransition(competitionLogo, 'transform', function (e) {
-              competitionLogo.src = 'img/competition_logos/' + update.logoId + '.png';
-              competitionLogo.style.webkitTransform = 'translateX(0)';
+              if (update.logoId == "" || update.logoId == "0") {
+                competitionLogo.src = 'img/competition_logos/0.png';
+              } else {
+                competitionLogo.src = 'img/competition_logos/' + update.logoId + '.png';
+                competitionLogo.style.webkitTransform = 'translateX(0)';
+              }
+
             });
           }
 
@@ -241,6 +247,7 @@ var update = function (message) {
       break;
 
     case 'SPORT_RESULTS_OFF':
+    case 'FOOTBALL_RESULTS_OFF':
 
       switch (currentState) {
         case 'in':
@@ -282,6 +289,8 @@ var parseRows = function (rowdata) {
   var trimmedItem;
   var trimmedItems;
   var matchCounter = 0;
+  var active;
+  var scoreMatches;
 
   for (var i = 0; i < rows.length; i += 1) {
     items = rows[i].split('~');
@@ -298,23 +307,24 @@ var parseRows = function (rowdata) {
     if (trimmedItems.length === 0) {
       //do nothing with empty row
     } else if (trimmedItems.length === 1) {
+      // we have a subheading, only one value in there
       parsedRows.push({
         type: 'subheading',
         text: trimmedItems[0]
       })
-    } else if (trimmedItems.length > 1) {
-
-      var active = false;
+    } else if (trimmedItems.length === 3) {
+      // we have a normal sport/football score
+      active = false;
 
       if (trimmedItems[1].indexOf('*') > -1) {
         trimmedItems[1].replace('*','');
         active = true;
       }
 
-      var scoreMatches = trimmedItems[1].match(/\d+/g);
+      scoreMatches = trimmedItems[1].match(/\d+/g);
 
       if (scoreMatches !== null && scoreMatches.length === 2) {
-        //has two scores
+        //middle has two numbers in the score
         parsedRows.push({
           type: 'score',
           colour: (matchCounter % 2) ? 'grey' : 'white',
@@ -324,7 +334,7 @@ var parseRows = function (rowdata) {
           awayTeam: trimmedItems[2].toUpperCase()
         })
       } else {
-        //is some other text
+        //middle has some other kind of text
         parsedRows.push({
           type: 'score',
           colour: (matchCounter % 2) ? 'grey' : 'white',
@@ -332,6 +342,45 @@ var parseRows = function (rowdata) {
           betweenText: trimmedItems[1].toUpperCase(),
           betweenType: 'other',
           awayTeam: trimmedItems[2].toUpperCase()
+        })
+      }
+
+      matchCounter += 1;
+    } else if (trimmedItems.length === 5) {
+      // we have a pools type row
+
+      active = false;
+
+      if (trimmedItems[2].indexOf('*') > -1) {
+        trimmedItems[2].replace('*','');
+        active = true;
+      }
+
+      scoreMatches = trimmedItems[2].match(/\d+/g);
+
+      if (scoreMatches !== null && scoreMatches.length === 2) {
+        //middle has two numbers in the score
+        parsedRows.push({
+          type: 'score-pools',
+          colour: (matchCounter % 2) ? 'grey' : 'white',
+          poolsNo: trimmedItems[0],
+          homeTeam: trimmedItems[1].toUpperCase(),
+          betweenText: scoreMatches[0] + ' - ' + scoreMatches[1],
+          betweenType: (active == true) ? 'active' : 'scores',
+          awayTeam: trimmedItems[3].toUpperCase(),
+          poolsVal: trimmedItems[4]
+        })
+      } else {
+        //middle has some other kind of text
+        parsedRows.push({
+          type: 'score-pools',
+          colour: (matchCounter % 2) ? 'grey' : 'white',
+          poolsNo: trimmedItems[0],
+          homeTeam: trimmedItems[1].toUpperCase(),
+          betweenText: trimmedItems[2].toUpperCase(),
+          betweenType: 'other',
+          awayTeam: trimmedItems[3].toUpperCase(),
+          poolsVal: trimmedItems[4]
         })
       }
 
@@ -344,6 +393,7 @@ var parseRows = function (rowdata) {
 
 var createRow = function (row) {
   var newRow = document.createElement('li');
+  var scoreline;
 
   if (row.type === 'subheading') {
     //subheading
@@ -351,13 +401,36 @@ var createRow = function (row) {
     addClass(newRow, 'subheading');
 
     newRow.innerHTML = '<h2>' + row.text + '</h2>';
+
   } else if (row.type === 'score') {
     addClass(newRow, 'row');
     addClass(newRow, row.colour);
 
-    var scoreline = '<div class="home-team">' + row.homeTeam + '</div>';
+    // <div class="home-team">ST JOHNSTONE</div>
+    // <div class="between active">0 - 5</div>
+    // <div class="away-team">ABERDEEN</div>
+
+    scoreline = '<div class="home-team">' + row.homeTeam + '</div>';
     scoreline += '<div class="between ' + row.betweenType + '">' + row.betweenText + '</div>';
     scoreline += '<div class="away-team">' + row.awayTeam + '</div>';
+
+    newRow.innerHTML = scoreline;
+
+  } else if (row.type === 'score-pools') {
+    addClass(newRow, 'row');
+    addClass(newRow, row.colour);
+
+    // <div class="pools-no">26</div>
+    // <div class="home-team">ST JOHNSTONE</div>
+    // <div class="between active">0 - 5</div>
+    // <div class="away-team">ABERDEEN</div>
+    // <div class="pools-val">1</div>
+
+    scoreline = '<div class="pools-no">' + row.poolsNo + '</div>';
+    scoreline +='<div class="home-team">' + row.homeTeam + '</div>';
+    scoreline += '<div class="between ' + row.betweenType + '">' + row.betweenText + '</div>';
+    scoreline += '<div class="away-team">' + row.awayTeam + '</div>';
+    scoreline += '<div class="pools-val">' + row.poolsVal + '</div>'
 
     newRow.innerHTML = scoreline;
   }
