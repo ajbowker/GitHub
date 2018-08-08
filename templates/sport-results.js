@@ -83,6 +83,10 @@ var update = function (message) {
           currentLogoId = update.logoId;
 
             var checkImg = new Image();
+
+          if (/d+/g.test(update.logoId)) {
+            competitionLogo.style.visibility = 'hidden';
+          } else {
             checkImg.src = 'img/competition_logos/' + update.logoId + '.png';
             checkImg.onload = function() {
                 // image is valid
@@ -93,7 +97,8 @@ var update = function (message) {
                 // image is not valid
                 competitionLogo.style.visibility = 'hidden';
             }; 
-          
+          }
+
           //position the slider
           sliderHeight = ((rowHeight * currentRowData.length) + headingHeight + footerHeight);
           sliderPosition = (hdDimensions.height - sliderHeight) / 2;
