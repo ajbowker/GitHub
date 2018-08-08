@@ -8,26 +8,45 @@
 
 **This is an HD (1920 x 1080 pixels) template**
 
+This is also just a plain old website. You can open it up in Chrome and use the console to test it. 
+
 You animate on the board by firing an `update` command with the following JSON:
 ```
 update('{"type":"SPORT_RESULTS","title":"LADBROKES SCOTTISH PREMIERSHIP","logoId":"1","hashtag":"#getinspired","website":"bbc.co.uk/getinspired","rows":"Saturday|CELTIC~1 - 2~RANGERS|HEART OF MIDLOTHIAN~3 - 4~HIBERNIAN|Sunday|ST JOHNSTON~0 - 5~ABERDEEN|~~|~~|~~|~~|~~|~~|~~|~~|~~"}')
 ```
-The board can handle changes from one page to the next through state logic.
+The board can handle changes from one page to the next through the state logic in the .js file.
 
 Animate it off with:
 ```
 update('{"type":"SPORT_RESULTS_OFF"}')
 ```
 
-- `type` can either be `SPORT_RESULTS` or `SPORT_RESULTS_OFF`.
-- `logoId` is linked to the PNG images in [templates/img/competition_logos](templates/img/competition_logos/). Leave this empty to hide the competition logo.
-- `hashtag` is linked to the footer bar, left hand text, `#sportscene`
+- `type` can either be :
+`SPORT_RESULTS`,
+`FOOTBALL_RESULTS`, (the same really, but planning ahead)
+`SPORT_RESULTS_OFF` or 
+`SPORT_RESULTS_OFF` (these are the same as well).
+- `logoId` is linked to the PNG images in [templates/img/competition_logos](templates/img/competition_logos/). Leave this empty `""` to hide the competition logo.
+- `hashtag` is linked to the footer bar, left hand text, `#bbcsport`
 - `website` is linked to the footer bar, right hand text `bbc.co.uk/getinspired`
-- `rows` are made up of either subheadings or matches. To make a subheading, simply enter the required string, 'Saturday'. Match details are separated by '~', `HomeTeam~0 - 0~AwayTeam`. If score contains any letters, box goes grey. If the score contains an '*' then we will present
-this match as active, a blue box with white text. 
+- `rows` are made up of either subheadings or matches. 
 - Each row is separated with '|', up to a maximum of 14 rows. Or more if you want, but that might look daft.
 
-For the main BBC logo, you can swap the .svg for any other Sport brand in the 
+To make a subheading, simply enter the required string, `Saturday`. 
+
+The match details are separated by '~', like `HomeTeam~0 - 0~AwayTeam`. If the middle section, the score contains any letters, the box goes grey through a CSS class. 
+
+If the score contains an '*' then we will present this match as active, and a blue box with white text will be used. eg: `Celtic~3 - 1*~Rangers`
+
+Matches with 5 values inside such as `5~Chelsea~0 - 0~Arsenal~2` will display a Pools result along with the match. First value in here is the Pools Number, and the last is the Pools Value (0,1 or 2) Make sure to top the rows with a subheading saying 'Pools' if you use these on a board.
+
+[Football Pools on Wikipedia](https://en.wikipedia.org/wiki/Football_pools)
+[Football Pools - Classic Results](https://www.footballpools.com/pool-games/classic-pools)
+
+
+
+
+The main BBC logo can be swapped for the .svg of any other Sport brand in the 
 [templates/img](templates/img/) folder.
 
 Eg:  `<img class="bbc-logo" src="img/bbc_sport.svg" />`
@@ -54,11 +73,17 @@ Eg:  `<img class="bbc-logo" src="img/bbc_sport.svg" />`
 
 - [X] Add footer text (hashtag, web address) to be configurable from update/JSON
 
-- [ ] Limit text size in headings (like MaxSize does in Viz Artist)
-
-- [ ] Have a pools style board from 'SPORT_RESULTS_POOL', and have a 5 detail row containing Pools Number and Pools Value
+- [X] Have a pools style board from 'SPORT_RESULTS_POOL', and have a 5 detail row containing Pools Number and Pools Value
 
 - [X] Give blue score background for matches in play, yellow for completed matches, add a flag to score for matches in play, such as '2 - 1*' 
+
+- [ ] Limit text size in headings (like MaxSize does in Viz Artist). Expando-text.
+
+- [ ] Cricket match result board
+
+- [ ] League Table of any type
+
+## About this work:
 
 This template featured in the [CasparCG at BBC Scotland](https://youtu.be/-XN8rovqzA0) talk to the glasgowCoderCollective.
 
