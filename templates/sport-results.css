@@ -135,6 +135,17 @@ body {
     font-size: 28px;
 }
 
+.data-rows .row.MiddleSubheading {
+    height: 52px;
+    background-color: #FFD230;
+    justify-content: center;
+}
+
+.data-rows .row.MiddleSubheading h2 {
+    font-family: 'Reith Sans Light';
+    font-size: 28px;
+}
+
 .data-rows .row .between {
     text-align: center;
     width: 99px;
