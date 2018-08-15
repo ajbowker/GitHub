@@ -301,8 +301,14 @@ var parseRows = function (rowdata) {
     items = rows[i].split('~');
     trimmedItems = [];
 
+	
+	var MiddleSubheading = '';
     for (var j = 0; j < items.length; j += 1) {
       trimmedItem = items[j].trim();
+	  if (j === 1 && trimmedItem !==''){
+		// text in middle score board
+		MiddleSubheading = trimmedItem;
+	  }
 
       if (trimmedItem !== '') {
         trimmedItems.push(trimmedItem);
@@ -313,10 +319,19 @@ var parseRows = function (rowdata) {
       //do nothing with empty row
     } else if (trimmedItems.length === 1) {
       // we have a subheading, only one value in there
-      parsedRows.push({
-        type: 'subheading',
-        text: trimmedItems[0]
-      })
+			if (MiddleSubheading !== ''){
+				// this is a yellow centred subheading
+				parsedRows.push({
+					type: 'MiddleSubheading',
+					text: trimmedItems[0]
+				})
+			}else{
+				// This is  a left aligned grey subheading
+				parsedRows.push({
+					type: 'subheading',
+					text: trimmedItems[0]
+				})
+	  }
     } else if (trimmedItems.length === 3) {
       // we have a normal sport/football score
       active = false;
@@ -404,6 +419,12 @@ var createRow = function (row) {
     //subheading
     addClass(newRow, 'row');
     addClass(newRow, 'subheading');
+
+    newRow.innerHTML = '<h2>' + row.text + '</h2>';
+  } else if (row.type === 'MiddleSubheading') {
+    //subheading
+    addClass(newRow, 'row');
+    addClass(newRow, 'MiddleSubheading');
 
     newRow.innerHTML = '<h2>' + row.text + '</h2>';
 
