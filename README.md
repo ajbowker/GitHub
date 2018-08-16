@@ -34,11 +34,11 @@ update('{"type":"SPORT_RESULTS_OFF"}')
 
 To make a regular left aligned subheading, simply enter the required string, `Saturday`. 
 
-For a centred subheading with yellow strap, enter the text into the score field leaving the first field blank, eg `~Yellow subheading`.
-
 The match details are separated by '~', like `HomeTeam~0 - 0~AwayTeam`. If the middle section, the score contains any letters, the box goes grey through a CSS class. 
 
 If the score contains an '*' then we will present this match as active, and a blue box with white text will be used. eg: `Celtic~3 - 1*~Rangers`
+
+For a centred subheading with yellow strap, enter the text into the score field leaving the first field blank, eg `~Yellow subheading`.
 
 Matches with 5 values inside such as `5~Chelsea~0 - 0~Arsenal~2` will display a Pools result along with the match. First value in here is the Pools Number, and the last is the Pools Value (0,1 or 2) Make sure to top the rows with a subheading saying 'Pools' if you use these on a board.
 
