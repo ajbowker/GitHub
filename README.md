@@ -32,7 +32,9 @@ update('{"type":"SPORT_RESULTS_OFF"}')
 - `rows` are made up of either subheadings or matches. 
 - Each row is separated with '|', up to a maximum of 14 rows. Or more if you want, but that might look daft.
 
-To make a subheading, simply enter the required string, `Saturday`. 
+To make a regular left aligned subheading, simply enter the required string, `Saturday`. 
+
+For a centred subheading with yellow strap, enter the text into the score field leaving the first field blank, eg `~Yellow subheading`.
 
 The match details are separated by '~', like `HomeTeam~0 - 0~AwayTeam`. If the middle section, the score contains any letters, the box goes grey through a CSS class. 
 
